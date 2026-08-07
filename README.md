@@ -19,7 +19,7 @@ This repository contains the files as I use them. They are not per se designed t
 You will need to edit the following files:
 
 - `.env` - this file contains the environment variables that Olivia will use, unless you change her instructions
-- `LOOP.md` - this file **IS** Olivia. This is what will be executed in a loop
+- `LOOP.md` - This is what will be executed in a loop. Her initialisation happens in `initial_prompt` in `babysit.yaml`
 - `personality/*` - files that contain how Olivia acts
 - `tasks/*` - files that contain the tasks Olivia can perform
 - `tools/*` - files that contain the tools Olivia can use
@@ -31,5 +31,7 @@ If you use `babysit`, you can use `babysit codex --yolo --loop --name "Olivia"`.
 ```bash
 0 * * * * cd ~/path-to-olivia-repo && claude -p "Read and execute the steps in LOOP.md"
 ```
+
+If you don't use babysit, make sure to set your initial prompt to the `initial_prompt` as it's in `babysit.yaml`.
 
 If you run the agent sandboxed like I do, you could consider adding the `--dangerously-skip-permissions` flag. In `babysit` using `--yolo` already does that, and sets `AGENT_AUTONOMY_MODE=yolo` which you could reference in your markdown files.

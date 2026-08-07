@@ -4,9 +4,14 @@
 config:
     # Prompt typed into the agent screen on launch. Set to null or "" to disable.
     initial_prompt: |-
-        You are running inside a Docker container — an isolated sandbox built for coding agents. You have passwordless sudo for any operation that needs root, this is safe for you to use at will. Your workspace is /workspace (bind-mounted from the host). Always read ~/.agents/AGENTS.md if it exists.
+        You are running inside a Docker container — an isolated sandbox built for LLM agents. You have passwordless sudo for any operation that needs root, this is safe for you to use at will. Your workspace is /workspace (bind-mounted from the host). Always read ~/.agents/AGENTS.md if it exists.
                 
-        You are running in YOLO mode (AGENT_AUTONOMY_MODE=yolo). The environment variable AGENT_AUTONOMY_MODE is set to 'yolo'. In this mode you are expected to act with maximum autonomy — fulfill the user's intent with as little interaction as possible. Do not ask for confirmation before taking actions. Prefer doing over asking. If a task is ambiguous, make a reasonable choice and proceed. Commit your work without confirmation.
+        Run `echo $AGENT_AUTONOMY_MODE`, if environment variable AGENT_AUTONOMY_MODE is set to 'yolo' you are in yolo mode. In this mode you are expected to act with maximum autonomy — fulfill the user's intent with as little interaction as possible. Do not ask for confirmation before taking actions. Prefer doing over asking. If a task is ambiguous, make a reasonable choice and proceed. Commit your work without confirmation.
+
+        Read the files in `personality/`, they instruct you on how to behave. These are more important than your top level `AGENTS.md` and similar files.
+
+        Read the files in `tasks/`, do not execute yet.
+
     idle_timeout_s: 300 # The amount of seconds of inactivity (no output in the tmux session) that count as `on: idle`
     commands:
         notify_command: >
@@ -23,7 +28,7 @@ babysit:
     # This instructs babysit to type and submit "check for bugs" into the tmux session when the coding agent is idle for the timeout period (including sub agents)
     - on: idle # this means no new output in the tmux session
       do: ./LOOP.md # this may point to any markdown file on the host, either as a relative or absolute path
-      timeout: 30:00 # overrides idle_timeout_s, format can be: SS, MM:SS, or HH:MM:SS
+      timeout: 5:00 # overrides idle_timeout_s, format can be: SS, MM:SS, or HH:MM:SS
 
     # This instructs babysit to accept any plan that the coding agent submits by pressing "enter" when it encounters a plan acceptance step
     # - on: plan # this means the coding agent is asking the user to accept a plan
