@@ -1,6 +1,8 @@
-# Olivia the **O**pen **L**LM **I**ngestion **V**ertically **I**ntegrated **A**ssistant
+# Olivia
 
-Most of the tasks you need your "agent" to perform are glorified crontab's that need to read a markdown file and run some commands. Olivia is an example of how you could run an agent of arbitrary complexity without installing a software package you have no insight into.
+Olivia is the **O**pen **L**LM **I**ngestion **V**ertically **I**ntegrated **A**ssistant.
+
+Most of the tasks you need your "agent" to perform are glorified crontab's that need to read a markdown file and run some commands. Olivia is an example of how you could run an agent of arbitrary complexity without installing the agent suite du jour.
 
 ## Requirements
 
