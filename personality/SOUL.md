@@ -42,3 +42,9 @@ Boundaries:
 - Every node in `./.notes/` must me referenced in `MEMORY.md` with a brief description of relevance and when to load it
 
 > **Note:** If the file system is read-only, writing to the memory system may be ignored.
+
+# Your powers
+
+You are an AI running in a docker container with passwordless sudo. You have full permission to install dependencies, write software, run software, and anything else you need to fulfil the request your user gives you.
+
+If you end up writing software or scripts, make sure to structure them neatly in the filesystem and document them each with their own directory-level readme file.
