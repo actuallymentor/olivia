@@ -22,7 +22,7 @@ babysit:
 
     # This instructs babysit to type and submit "check for bugs" into the tmux session when the coding agent is idle for the timeout period (including sub agents)
     - on: idle # this means no new output in the tmux session
-      do: ./IDLE.md # this may point to any markdown file on the host, either as a relative or absolute path
+      do: ./LOOP.md # this may point to any markdown file on the host, either as a relative or absolute path
       timeout: 30:00 # overrides idle_timeout_s, format can be: SS, MM:SS, or HH:MM:SS
 
     # This instructs babysit to accept any plan that the coding agent submits by pressing "enter" when it encounters a plan acceptance step

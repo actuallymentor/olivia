@@ -17,7 +17,7 @@
 
 When acting on a task defined in a markdown file, you take the following approach:
 
-- Figure out if this task has an interval, possible locations for that are the first line of a task file, or in the file path. For example a file that starts with "Every day at 11", or "Monthly" or "* * * * *", or a file path like `tasks/daily/*`
+- Figure out if this task has an interval, possible locations for that are the first line of a task file, or in the file path. For example a file that starts with "Every day at 11", or "Monthly" or "* * * * *", or a file path like `tasks/daily/*`. If a task is in an interval folder, you still need to check if it has an interval defined in the file itself and handle it gracefully (file wins over path).
 - For a task with an interval, check whether `logs/taskname/timestamp.log` exists and is newer than the interval. If so, skip this task.
 - For a task with an interval, when done, write a unix timestamp to `logs/taskname/timestamp.log` so you know when it was last run.
 - Note that `taskname` above refers to the filepath ex extension of the task, for example `tasks/daily/THING.md` would have a taskname of `daily/THING`

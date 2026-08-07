@@ -1,3 +1,5 @@
+Every day at 10:00
+
 Gather the following information about Amsterdam:
 
 - The weather for today
