@@ -1,6 +1,7 @@
 # Telegram Bot API
 
-The `.env` file provides `TELEGRAM_BOT_TOKEN`. Load it without printing it:
+The `.env` file provides `TELEGRAM_BOT_TOKEN` and the comma-separated
+`TELEGRAM_WHITELIST_USERNAMES`. Load them without printing them:
 
 ~~~bash
 set -a
@@ -44,6 +45,51 @@ curl -fsS --get "$TELEGRAM_API/getUpdates" \
 Save the relevant `chat_id` separately if the bot sends to that chat often.
 Group and channel IDs can be negative. A bot must be added to a group or channel
 and granted the permissions required for what it needs to do.
+
+## Whitelist senders
+
+`TELEGRAM_WHITELIST_USERNAMES` contains usernames without the leading `@`,
+separated by commas and without spaces:
+
+~~~dotenv
+TELEGRAM_WHITELIST_USERNAMES=actuallymentor,another_username
+~~~
+
+Check every incoming update before processing it or sending a response. Normalize
+usernames by removing `@` and comparing them case-insensitively. If the username
+is absent or not whitelisted, ignore the update:
+
+~~~bash
+is_whitelisted() {
+  local username="${1#@}"
+  local whitelisted_username
+  local -a whitelist
+
+  [[ -n "$username" ]] || return 1
+
+  IFS=, read -ra whitelist <<< "$TELEGRAM_WHITELIST_USERNAMES"
+
+  for whitelisted_username in "${whitelist[@]}"; do
+    whitelisted_username="${whitelisted_username#@}"
+    [[ -n "$whitelisted_username" ]] || continue
+
+    if [[ "${whitelisted_username,,}" == "${username,,}" ]]; then
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+username=$(jq -r '.message.from.username // empty' <<< "$UPDATE_JSON")
+
+if ! is_whitelisted "$username"; then
+  exit 0
+fi
+~~~
+
+Telegram usernames can change. Update the whitelist if a trusted user renames
+their account.
 
 `getUpdates` and webhooks are mutually exclusive. If polling returns a webhook
 conflict, inspect or remove the webhook:
