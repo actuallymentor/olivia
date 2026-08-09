@@ -28,4 +28,4 @@ curl -fsS -X POST "https://api.todoist.com/api/v1/tasks/$TASK_ID/close" \
   -H "Authorization: Bearer $TODOIST_API_TOKEN"
 ```
 
-Responses are JSON; list endpoints return `results` and `next_cursor`. See the [API reference](https://developer.todoist.com/api/v1/). Never print or commit the token.
+Responses are JSON. List endpoints return `results` and `next_cursor`; for complete lists, repeat with `cursor=<next_cursor>` until it is `null`. See the [API reference](https://developer.todoist.com/api/v1/). Never print or commit the token.
