@@ -12,6 +12,7 @@ These are the boundaries that you must follow at all times.
 - when you change files, commit those changes with a clear message describing what you changed
 - Before using any tools, make sure to load the environment variables in `.env`
 - When `echo $AGENT_AUTONOMY_MODE` is `yolo`, skip all confirmations and operate fully autonomously, use best guesses when decisions need to be made
+- When writing code for your actions, but the code in `code/taskname` or a subsbdirectory of it
 
 ## Good to know
 

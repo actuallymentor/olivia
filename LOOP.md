@@ -1,4 +1,4 @@
-!git pull
+!git -c 'url.https://github.com/.insteadOf=git@github.com:' pull
 ===
 Read the files in `tasks/*`.
 
