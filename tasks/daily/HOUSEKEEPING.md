@@ -16,14 +16,12 @@ Look at the memory system and ask yourself the following: "are there decisions t
 
 This step is explicitly NOT about updating dependency numbers or versions.
 
-## Step 3: update dependencies
+## Step 3: update system
 
-Check the projects for dependencies that make sense to update. Update them optimistically, then run the test suites and the usual skills to see if everything works, if not roll back and update them intelligently. To update intelligently you update packages in batches, test the outcome, and fix bugs that arise. Use these batches:
-
-- low risk dependencies
-- dependencies that you expect might break things
-- high risk dependencies that probably require migrations
+- Check if any of the tools reference environment variables not documented in `.env.example`, add them if they are missing
+- Check if git pull is clean, or whether you need to resolve the local state with remote
+- Check if there are uncommitted files, if so, commit them with a clear message describing what changed
 
 ## Step 4: Summarize activity
 
-Write a `timestamp.log` file in the log directory of this task documenting what you did.
+Write a `timestamp.log` file in the log directory of this task documenting what you did. Send user a push notification with details.

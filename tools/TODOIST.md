@@ -1,5 +1,14 @@
 # Todoist
 
+## Boundaries
+
+- make sure a task title is descriptive, no "Do this", always "Do action X to achieve Y"
+- check if you can guess which project a task belongs to, assign it
+- optimmistically interpret task metadata. Example: `Take action p1 mon at 9` means you set the priority to 1 and the due date to monday at 09:00
+- Add context for the task like research to the task comment
+
+## Usage
+
 The `.env` file provides `TODOIST_API_TOKEN`. Load it without printing it:
 
 ```bash
