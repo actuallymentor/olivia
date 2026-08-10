@@ -43,6 +43,17 @@ and Edit permissions. Write operations such as uploading a LoRA require Edit.
 
 ## Audio
 
+Default to Cloudflare's current Cloudflare-hosted speech models:
+
+- General and batch speech-to-text: `@cf/deepgram/nova-3`.
+- English text-to-speech: `@cf/deepgram/aura-2-en`.
+- Spanish text-to-speech: `@cf/deepgram/aura-2-es`.
+
+Use `@cf/deepgram/flux` instead of Nova-3 only for real-time conversational
+voice-agent streams; Flux is specialized for turn detection and currently
+requires WebSocket audio in raw 16-bit PCM. Do not default to the older
+`@cf/deepgram/aura-1` when Aura-2 supports the requested language.
+
 ### Speech to text
 
 This sends an MP3 directly to Deepgram Nova-3 and prints its best transcript:
@@ -71,12 +82,12 @@ shows how to Base64-encode and chunk recordings before sending them to Whisper.
 
 ### Text to speech
 
-Aura returns raw audio rather than a JSON envelope. Save the response directly
-to a file:
+Aura-2 returns raw audio rather than a JSON envelope. Save the response directly
+to a file. This English example uses the current default model:
 
 ```bash
 OUTPUT_FILE='/absolute/path/to/speech.mp3'
-MODEL='@cf/deepgram/aura-1'
+MODEL='@cf/deepgram/aura-2-en'
 
 curl -fsS -X POST \
   "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/ai/run/$MODEL" \
@@ -84,7 +95,7 @@ curl -fsS -X POST \
   -H 'Content-Type: application/json' \
   --data '{
     "text": "Hello from Cloudflare Workers AI.",
-    "speaker": "asteria",
+    "speaker": "luna",
     "encoding": "mp3"
   }' \
   --output "$OUTPUT_FILE"
@@ -92,9 +103,11 @@ curl -fsS -X POST \
 test -s "$OUTPUT_FILE" && file "$OUTPUT_FILE"
 ```
 
-The [Aura model page](https://developers.cloudflare.com/workers-ai/models/aura-1/)
-lists speakers, encodings, containers, sample rates, and bit rates. For
-multilingual speech, see [`@cf/myshell-ai/melotts`](https://developers.cloudflare.com/workers-ai/models/melotts/).
+The [Aura-2 English model page](https://developers.cloudflare.com/workers-ai/models/aura-2-en/)
+lists speakers, encodings, containers, sample rates, and bit rates. Use
+[`@cf/deepgram/aura-2-es`](https://developers.cloudflare.com/workers-ai/models/aura-2-es/)
+for Spanish. For other languages, fall back to
+[`@cf/myshell-ai/melotts`](https://developers.cloudflare.com/workers-ai/models/melotts/).
 
 ### Real-time audio
 
